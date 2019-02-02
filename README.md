@@ -1,22 +1,27 @@
 # React-2019
 Change different branch to get explore.
-* Styling component
-### 1st way external (recomended way)
-* Create and import css with extension , !!remember we can avoid extention only in js file. in css its must to include extension
-* use your class in jsx as "className"
-* Webpack will add these css as internal css in index.html
-### 2nd way inline
-* add constant say 
-    ```
-        const styleguide = {
-            backgroundColor: 'white',
-            font: 'inherit',
-            border: '1px solid blue',
-            padding: '8px',
-            cursor: 'pointer'
-        };
-    ```
-* bind this constant in html (jsx) as "style={styleguide}"
+* Rendering data conditionally
+* Toggle show hide with ternary operator as below
 
+    ```
+        {
+            this.state.showPersons ?
+            <div>
+            <PersonImport 
+                name={this.state.persons[0].name} 
+                age={this.state.persons[0].age} />
+            <PersonImport 
+                name={this.state.persons[1].name} 
+                age={this.state.persons[1].age}
+                clickme={this.switchNameHandler.bind(this, 'Max!')}
+                heychanged={this.nameChangedHandler} >My Hobbies: Racing</PersonImport>
+            <PersonImport 
+                name={this.state.persons[2].name} 
+                age={this.state.persons[2].age} />
+            </div>
+            : null
+            }
+    ```
+* React only render the element if condition satisfies.
 
 

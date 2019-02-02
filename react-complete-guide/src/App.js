@@ -10,7 +10,8 @@ class App extends Component {
       { name: 'Manu', age: 29 },
       { name: 'Stephanie', age: 26 }
     ],
-    otherState: 'some other value'
+    otherState: 'some other value',
+    showPersons: false
   }
 
   switchNameHandler = (newName) => {
@@ -34,6 +35,10 @@ class App extends Component {
       ]
     } )
   }
+  togglePersonsHandler = () => {
+    console.log('togglePersonsHandler');
+    this.setState({showPersons: !this.state.showPersons});
+  }
 // avoid below onClick - this is inefficient
   render () {
     const styleguide = {
@@ -47,18 +52,24 @@ class App extends Component {
       <div className="App">
         <h1>Hi, I'm a React App</h1>
         <p>This is really working!</p>
-        <button style={styleguide} onClick={() => this.switchNameHandler('Maximilian!!')}>Switch Name</button>
-        <PersonImport 
-          name={this.state.persons[0].name} 
-          age={this.state.persons[0].age} />
-        <PersonImport 
-          name={this.state.persons[1].name} 
-          age={this.state.persons[1].age}
-          clickme={this.switchNameHandler.bind(this, 'Max!')}
-          heychanged={this.nameChangedHandler} >My Hobbies: Racing</PersonImport>
-        <PersonImport 
-          name={this.state.persons[2].name} 
-          age={this.state.persons[2].age} />
+        <button style={styleguide} onClick={this.togglePersonsHandler}>Toggle Persons</button>
+        {
+          this.state.showPersons ?
+          <div>
+          <PersonImport 
+            name={this.state.persons[0].name} 
+            age={this.state.persons[0].age} />
+          <PersonImport 
+            name={this.state.persons[1].name} 
+            age={this.state.persons[1].age}
+            clickme={this.switchNameHandler.bind(this, 'Max!')}
+            heychanged={this.nameChangedHandler} >My Hobbies: Racing</PersonImport>
+          <PersonImport 
+            name={this.state.persons[2].name} 
+            age={this.state.persons[2].age} />
+        </div>
+        : null
+        }
       </div>
     );
     // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Does this work now?'));
