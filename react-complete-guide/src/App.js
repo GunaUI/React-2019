@@ -34,7 +34,7 @@ class App extends Component {
       ]
     } )
   }
-
+// avoid below onClick - this is inefficient
   render () {
     return (
       <div className="App">
@@ -47,7 +47,7 @@ class App extends Component {
         <PersonImport 
           name={this.state.persons[1].name} 
           age={this.state.persons[1].age}
-          click={this.switchNameHandler.bind(this, 'Max!')}
+          clickme={this.switchNameHandler.bind(this, 'Max!')}
           changed={this.nameChangedHandler} >My Hobbies: Racing</PersonImport>
         <PersonImport 
           name={this.state.persons[2].name} 
