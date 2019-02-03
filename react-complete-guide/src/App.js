@@ -44,14 +44,7 @@ class App extends Component {
   }
 // avoid below onClick - this is inefficient
   render () {
-    const styleguide = {
-      backgroundColor: 'green',
-      font: 'inherit',
-      border: '1px solid blue',
-      padding: '8px',
-      cursor: 'pointer',
-      color: 'white'
-    };
+    let styleguide = '';
     let personsVar = null;
 
     if ( this.state.showPersons ) {
@@ -67,7 +60,7 @@ class App extends Component {
           })}
         </div>
       )
-      styleguide.backgroundColor = 'red';
+      styleguide = mycssModule.Red;
     }
 
     const classes = [];
@@ -82,7 +75,7 @@ class App extends Component {
         <div className={mycssModule.App}>
           <h1>Hi, I'm a React App</h1>
           <p className={classes.join( ' ' )}>This is really working!</p>
-          <button style={styleguide} onClick={this.togglePersonsHandler}>Toggle Persons</button>
+          <button  className={styleguide} onClick={this.togglePersonsHandler}>Toggle Persons</button>
           {personsVar}
         </div>
     );

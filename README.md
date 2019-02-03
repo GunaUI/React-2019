@@ -1,6 +1,6 @@
 # React-2019
 Change different branch to get explore.
-## CSS Module
+## CSS Module Pseudo
 * Advantage of css module is  that you no longer have to worry about naming conflicts or collisions in your CSS. All your CSS is now locally scoped to the component you're using it in.
 
 ### STEPS
@@ -42,3 +42,33 @@ Example:
 ```
 
 Now you can use className="Post"  anywhere in your app and receive that styling.
+
+### CSS Module Pseudo class
+* in css file add as normal css selector and sub selector
+```
+.App button {
+    background-color: green;
+    font:inherit;
+    border: 1px solid blue;
+    padding: 8px;
+    cursor: pointer;
+    color: white;
+}
+.App button:hover {
+    background-color: lightgreen;
+    color: black;
+}
+.App button.Red {
+    background-color: red;
+}
+.App button.Red:hover {
+    background-color: salmon;
+    color: black;
+}
+```
+* Eventhough its coded witj subselector you can use this as sperate also like below
+
+```
+styleguide = mycssModule.Red;
+```
+* Please media query and clear idea refer files for more.
