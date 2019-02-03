@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 // import logo from './logo.svg';
 import './App.css';
 import PersonImport from './Person/Person';
-import Radium , { StyleRoot } from 'radium';
 // For component name use only caps (custom component) , small letter element is default jsx.
 class App extends Component {
   state = {
@@ -51,11 +50,7 @@ class App extends Component {
       border: '1px solid blue',
       padding: '8px',
       cursor: 'pointer',
-      color: 'white',
-      ':hover': {
-        backgroundColor: 'lightgreen',
-        color: 'black'
-      }
+      color: 'white'
     };
     let personsVar = null;
 
@@ -73,10 +68,6 @@ class App extends Component {
         </div>
       )
       styleguide.backgroundColor = 'red';
-      styleguide[':hover'] = {
-          backgroundColor: 'salmon',
-          color: 'black'
-      };
     }
 
     const classes = [];
@@ -88,17 +79,15 @@ class App extends Component {
     }
     
     return (
-      <StyleRoot>
         <div className="App">
           <h1>Hi, I'm a React App</h1>
           <p className={classes.join( ' ' )}>This is really working!</p>
           <button style={styleguide} onClick={this.togglePersonsHandler}>Toggle Persons</button>
           {personsVar}
         </div>
-      </StyleRoot>
     );
     // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Does this work now?'));
   }
 }
 
-export default Radium(App);
+export default App;
