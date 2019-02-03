@@ -1,73 +1,115 @@
 # React-2019
 Change different branch to get explore.
-* Outputting data in List
-* Es6 Map function used to repeat the array list and form list of elemensts
+* Dynamically change style in component
+## Inline style dynamically
+
 ```
-    {this.state.persons.map((person, index) => {
-            return <PersonImport
-                deleteme={() => this.deletePersonHandler(index)}
-                name={person.name} 
-                age={person.age}
-                key={person.id}
-                heychanged={(event) => this.nameChangedHandler(event, person.id)} />
-        })}
+styleguide.backgroundColor = 'red';
 ```
-### Delete a list
-* ID is mandatory in list. without Id it will through error.
-* This deletePersonHandler approach has flaw .
+
+## Style className dynamically.
+* in render function before return.
+
 ```
-    deletePersonHandler = (personIndex) => {
-        const persons = this.state.persons
-        persons.splice(personIndex, 1);
-        this.setState({persons: persons});
+    const classes = [];
+        if ( this.state.persons.length <= 2 ) {
+            classes.push( 'red' ); // classes = ['red']
+        }
+        if ( this.state.persons.length <= 1 ) {
+            classes.push( 'bold' ); // classes = ['red', 'bold']
+        }
+```
+* In Html (JSX)
+
+```
+className={classes.join( ' ' )}
+```
+* here join converts array to string.
+
+## Sudo class style selector 
+
+* sudo classes are not css property for that we need to add some third party plugin - radium
+
+```
+    npm install --save radium
+```
+* Next we need to import radium to our component either specific or common component
+
+```
+    import Radium from 'radium';
+```
+* Then before export that component we need to wrap that component with radium component like below
+
+```
+    export default Radium(App);
+```
+* Now we can use pseudo class below example
+```
+const styleguide = {
+    backgroundColor: 'green',
+    font: 'inherit',
+    border: '1px solid blue',
+    padding: '8px',
+    cursor: 'pointer',
+    color: 'white',
+    ':hover': {
+        backgroundColor: 'lightgreen',
+        color: 'black'
     }
+};
 ```
-* The flaw of this approach is that in javascript, objects and arrays are reference types,
-* so when I get persons from my state as I do here I actually get a pointer to the original person's object
-* A good practice is to create a copy of your persons array before manipulating it and a simple way of doing this is by calling the slice method. Slice without arguments simply copies the full array and
 
 ```
-    deletePersonHandler = (personIndex) => {
-        const persons = this.state.persons.slice();
-        persons.splice(personIndex, 1);
-        this.setState({persons: persons});
+styleguide.backgroundColor = 'red';
+styleguide[':hover'] = {
+    backgroundColor: 'salmon',
+    color: 'black'
+};
+```
+## Radium for media quries
+
+* Without radium also normally with className, we could use media quries in our css
+
+```
+@media (min-width: 500px) {
+    .Person {
+        width: 450px;
     }
-```
-* More better way An alternative to this approach would be to use it a ES6 feature, the spread operator. 
-
-```
-    deletePersonHandler = (personIndex) => {
-        const persons = [...this.state.persons];
-        persons.splice(personIndex, 1);
-        this.setState({persons: persons});
-    }
-```
-
-### Flexible List
-* List wise update element
-```
-nameChangedHandler = (event,id) => {
-    //Find index of edited element
-    const personIndex = this.state.persons.findIndex(person => {
-        return person.id === id;
-    });
-
-    //Create copy of edited element
-    const editedPerson = {
-        ...this.state.persons[personIndex]
-    };
-    //Update the value to the person name
-    editedPerson.name = event.target.value;
-
-    // Again create copy with old value
-    const updatedPersons = [...this.state.persons];
-
-    // update the old copy with new value
-    updatedPersons[personIndex] = editedPerson;
-
-    // Set currents updated state.
-    this.setState( {persons: updatedPersons} );
-
 }
+
+```
+* With Radium we could add media queires with our styleguide constant as below
+
+```
+    const styleGuide = {
+        '@media (min-width: 500px)': {
+            width: '450px'
+        }
+    };
+
+```
+* use the above constant as 
+
+```
+style={styleGuide}
+```
+* !!!! Important - to use radium media queries we need to import {StyleRoot} also from radim
+
+```
+import Radium , { StyleRoot } from 'radium';
+```
+* And also its very important to wrap your component JSX with <StyleRoot> element as below
+
+```
+    return (
+        <StyleRoot>
+        <div className="App">
+            <h1>Hi, I'm a React App</h1>
+            <p className={classes.join( ' ' )}>This is really working!</p>
+            <button style={styleguide} onClick={this.togglePersonsHandler}>Toggle Persons</button>
+            {personsVar}
+        </div>
+        </StyleRoot>
+    );
 ```
 
