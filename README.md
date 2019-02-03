@@ -31,3 +31,14 @@ import mycssModule from './App.css';
 
 classes.push( mycssModule.red );
 ```
+
+By the way, if you somehow also want to define a global (i.e. un-transformed) CSS class in such a .css  file, you can prefix the selector with :global .
+
+```
+Example:
+
+:global .Post { ... } 
+
+```
+
+Now you can use className="Post"  anywhere in your app and receive that styling.
