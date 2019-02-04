@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-// import logo from './logo.svg';
 import mycssModule from './App.css';
-import PersonImport from './Person/Person';
+import PersonRepeat from '../components/Persons/Persons';
+import Cockpit from '../components/Cockpit/Cockpit';
 // For component name use only caps (custom component) , small letter element is default jsx.
 class App extends Component {
   state = {
@@ -42,44 +42,32 @@ class App extends Component {
     persons.splice(personIndex, 1);
     this.setState({persons: persons});
   }
-// avoid below onClick - this is inefficient
   render () {
-    let styleguide = '';
     let personsVar = null;
 
     if ( this.state.showPersons ) {
       personsVar = (
         <div>
-          {this.state.persons.map((person, index) => {
-            return <PersonImport
-              deleteme={() => this.deletePersonHandler(index)}
-              name={person.name} 
-              age={person.age}
-              key={person.id}
-              heychanged={(event) => this.nameChangedHandler(event, person.id)} />
-          })}
+          <PersonRepeat
+            persons={this.state.persons}
+            personClicked={this.deletePersonHandler}
+            personChanged={this.nameChangedHandler} 
+          />;
         </div>
       )
-      styleguide = mycssModule.Red;
-    }
-
-    const classes = [];
-    if ( this.state.persons.length <= 2 ) {
-      classes.push( mycssModule.red ); // classes = ['red']
-    }
-    if ( this.state.persons.length <= 1 ) {
-      classes.push( mycssModule.bold ); // classes = ['red', 'bold']
     }
     
     return (
         <div className={mycssModule.App}>
-          <h1>Hi, I'm a React App</h1>
-          <p className={classes.join( ' ' )}>This is really working!</p>
-          <button  className={styleguide} onClick={this.togglePersonsHandler}>Toggle Persons</button>
+          <Cockpit
+            appTitle={this.props.title}
+            showPersons={this.state.showPersons}
+            persons={this.state.persons}
+            toggleClicked={this.togglePersonsHandler} 
+          />
           {personsVar}
         </div>
     );
-    // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Does this work now?'));
   }
 }
 
