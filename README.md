@@ -4,6 +4,7 @@ Change different branch to get explore.
 
 ## Creation phase
     * constructor
+    * getDerivedStateFromProps
     * componentWillMount
     * render
     * RenderChildComponent
@@ -51,7 +52,21 @@ You should not do that in the constructor because this may lead to a re-renderin
 
 it may also lead to your state becoming unpredictable.
 
-### ComponentWillMount
+#### super(props); 
+    This will basically execute the constructor of the component you're extending.
+You could initialise your state with this.state in constructor.
+
+### getDerivedStateFromProps
+
+```
+    static getDerivedStateFromProps(props, state) {
+        console.log('[App.js] getDerivedStateFromProps', props);
+        return state;
+    }
+```
+
+
+### ComponentWillMount (LEGACY - Will be removed in future)
 
 After constructor, another function gets executed, this function is the componentWillMount method.
 
@@ -117,5 +132,3 @@ What you shouldn't do here is update the state though because that will trigger 
 
 something you have to keep in mind,don't call this.setState in componentDidMount,this will trigger a re-rendering .
 
-### Note
-Refer : Lifecycle-while-comp-creation.png , component-Life -cycle.png, lifecycle-creation-learning-card.pdf
