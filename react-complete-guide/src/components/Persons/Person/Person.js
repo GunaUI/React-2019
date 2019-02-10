@@ -1,14 +1,18 @@
-import React from 'react';
-import mycssClassModule from './Person.css';
-const personExport = ( properties ) => {
-    console.log('[personExport - Person.js] child component rendering ...'); 
-    return (
-        <div className={mycssClassModule.Person}>
-            <p onClick={properties.deleteme}>I'm {properties.name} and I am {properties.age} years old!</p>
-            <p>{properties.children}</p>
-            <input type="text" onChange={properties.heychanged} value={properties.name} />
-        </div>
-    )
-};
+import React, { Component } from 'react';
 
-export default personExport;
+import mycssClassModule from './Person.css';
+
+class PersonExport extends Component {
+    render() {
+        console.log('[Person.js] rendering...');
+        return (
+            <div className={mycssClassModule.Person}>
+                <p onClick={this.props.deleteme}>I'm {this.props.name} and I am {this.props.age} years old!</p>
+                <p>{this.props.children}</p>
+                <input type="text" onChange={this.props.heychanged} value={this.props.name} />
+            </div>
+        );
+    }
+}
+
+export default PersonExport;
