@@ -15,7 +15,8 @@ class App extends Component {
         { id: 'asdf11', name: 'Stephanie', age: 26 }
       ],
       otherState: 'some other value',
-      showPersons: false
+      showPersons: false,
+      showCockpit: true
     }
   }
 
@@ -39,6 +40,10 @@ class App extends Component {
 
   componentDidUpdate() {
     console.log('[App.js] componentDidUpdate');
+  }
+
+  componentWillUnmount() {
+    console.log('[Persons.js] componentWillUnmount');
   }
 
 
@@ -87,12 +92,21 @@ class App extends Component {
     
     return (
         <div className={mycssModule.App}>
+          <button
+          onClick={() => {
+            this.setState({ showCockpit: false });
+          }}
+        >
+          Remove Cockpit
+        </button>
+        {this.state.showCockpit ? (
           <Cockpit
             appTitle={this.props.title}
             showPersons={this.state.showPersons}
-            persons={this.state.persons}
+            personsLength={this.state.persons.length}
             toggleClicked={this.togglePersonsHandler} 
           />
+          ) : null}
           {personsVar}
         </div>
     );
