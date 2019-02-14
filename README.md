@@ -1,87 +1,26 @@
 # React-2019
 Change different branch to get explore.
-## HOC - Higher Order Component
-### Method 1
-* Return a component with pros as pros.children
+## Understanding Props chain 
+* If we need to pass properties from parent to particular child component , we need to pass data through all the layers of child.This is not good.
+* Solution - createContext , Lets say to send data from A component to E component without pass through B,C,D
+* First step : Create a context with any data you want to use globally (!! where ever you need).
 
 ```
-    const aux = props => props.children;
+import React from 'react';
 
-    export default aux;
-```
-* Wrap the multiple adjacent render element with above component
+const authContext = React.createContext({
+    authenticated: false,
+    login: () => {}
+});
 
+export default authContext;
 ```
-        return (
-                <Aux>
-                    <p onClick={this.props.deleteme}>I'm {this.props.name} and I am {this.props.age} years old!</p>
-                    <p>{this.props.children}</p>
-                    <input type="text" onChange={this.props.heychanged} value={this.props.name} />
-                </Aux>
-        );
+### Provider - Now wrap this a provider wherever it needs
 
 ```
-### Method 2
+import AuthContext from '../context/auth-context';
 
-* Return as default Fragment as below
-
-```
-import React, { Component, Fragment } from 'react';
-
-return (
-                <Fragment>
-                    <p onClick={this.props.deleteme}>I'm {this.props.name} and I am {this.props.age} years old!</p>
-                    <p>{this.props.children}</p>
-                    <input type="text" onChange={this.props.heychanged} value={this.props.name} />
-                </Fragment>
-        );
-
-```
-### Method 3 (with className)
-
-* Return an wrapper with class name
-* Create a custom component as below
-
-```
-    import React from 'react';
-
-    const withClass = props => (
-        <div className={props.classes}>{props.children}</div>
-    );
-
-    export default withClass;
-```
-* Use  withClass component as below
-```
-<WithClass classes={mycssModule.App}>
-
-    ...... 
-
-</WithClass>
-```
-### Method 4 (With a wrapper for children)
-
-```
-    import React from 'react';
-
-    const withClass = (WrappedComponent, className) => {
-    return props => (
-        <div className={className}>
-        <WrappedComponent {...props}/>
-        </div>
-    );
-    };
-
-    export default withClass;
-```
-
-* Use the above component as below
-
-```
-import mycssModule from './App.css';
-import Aux from '../hoc/Aux'
-import withClass from '../hoc/WithClass'
-return (
+ return (
         <Aux>
           <button
           onClick={() => {
@@ -90,27 +29,69 @@ return (
         >
           Remove Cockpit
         </button>
-        {this.state.showCockpit ? (
-          <Cockpit
-            appTitle={this.props.title}
-            showPersons={this.state.showPersons}
-            personsLength={this.state.persons.length}
-            toggleClicked={this.togglePersonsHandler} 
-          />
-          ) : null}
-          {personsVar}
+        <AuthContext.Provider
+          value={{
+            authenticated: this.state.authenticated,
+            login: this.loginHandler
+          }}
+        >
+          {this.state.showCockpit ? (
+            <Cockpit
+              appTitle={this.props.title}
+              showPersons={this.state.showPersons}
+              personsLength={this.state.persons.length}
+              toggleClicked={this.togglePersonsHandler} 
+            />
+            ) : null}
+            {personsVar}
+          </AuthContext.Provider>
         </Aux>
     );
 
-    ....
-    .....
-
-export default withClass(App, mycssModule.App);
 ```
+### Method 1 - Consume Context - Class based component
 
+```
+import AuthContext from '../../../context/auth-context';
 
+// Use the same name (contextType) as below don't change this is static
 
+static contextType = AuthContext;
+```
+* Now you can wrap as per your need 
 
+```
+{this.context.authenticated ? (
+    <p>Authenticated!</p>
+    ) : (
+    <p>Please log in</p>
+)}
+```
+* Now you access this inside your componentDidMount hook also
+
+```
+componentDidMount() {
+        console.log(this.context.authenticated);
+}
+```
+### Method 2 - Consume Context - functional based component
+
+* Import the useContext hook
+
+```
+import React, { useEffect, useRef, useContext } from 'react';
+mport AuthContext from '../../../context/auth-context';
+```
+* Create const for useContext - you can use any name not necessary (authContext)
+
+```
+const authContext = useContext(AuthContext);
+```
+* Now you can use as you need
+
+```
+<button onClick={authContext.login}>Log in</button>
+```
 
 
 

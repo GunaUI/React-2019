@@ -4,6 +4,7 @@ import PersonRepeat from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 import Aux from '../hoc/Aux'
 import withClass from '../hoc/WithClass'
+import AuthContext from '../context/auth-context';
 // For component name use only caps (custom component) , small letter element is default jsx.
 class App extends Component {
   constructor(props) {
@@ -19,7 +20,8 @@ class App extends Component {
       otherState: 'some other value',
       showPersons: false,
       showCockpit: true,
-      changeCounter: 0
+      changeCounter: 0,
+      authenticated: false
     }
   }
 
@@ -82,6 +84,9 @@ class App extends Component {
     persons.splice(personIndex, 1);
     this.setState({persons: persons});
   }
+  loginHandler = () => {
+    this.setState({ authenticated: true });
+  };
   render () {
     console.log('[App.js] render');
     let personsVar = null;
@@ -93,6 +98,7 @@ class App extends Component {
             persons={this.state.persons}
             personClicked={this.deletePersonHandler}
             personChanged={this.nameChangedHandler} 
+            isAuthenticated={this.state.authenticated}
           />;
         </div>
       )
@@ -107,15 +113,22 @@ class App extends Component {
         >
           Remove Cockpit
         </button>
-        {this.state.showCockpit ? (
-          <Cockpit
-            appTitle={this.props.title}
-            showPersons={this.state.showPersons}
-            personsLength={this.state.persons.length}
-            toggleClicked={this.togglePersonsHandler} 
-          />
-          ) : null}
-          {personsVar}
+        <AuthContext.Provider
+          value={{
+            authenticated: this.state.authenticated,
+            login: this.loginHandler
+          }}
+        >
+          {this.state.showCockpit ? (
+            <Cockpit
+              appTitle={this.props.title}
+              showPersons={this.state.showPersons}
+              personsLength={this.state.persons.length}
+              toggleClicked={this.togglePersonsHandler} 
+            />
+            ) : null}
+            {personsVar}
+          </AuthContext.Provider>
         </Aux>
     );
   }
