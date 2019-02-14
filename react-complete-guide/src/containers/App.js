@@ -12,13 +12,14 @@ class App extends Component {
 
     this.state = {
       persons: [
-        { id: 'asfa1', name: 'Max', age: 28 },
-        { id: 'vasdf1', name: 'Manu', age: 29 },
-        { id: 'asdf11', name: 'Stephanie', age: 26 }
+        { id: 1, name: 'Max', age: 28 },
+        { id: 2, name: 'Manu', age: 29 },
+        { id: 3, name: 'Stephanie', age: 26 }
       ],
       otherState: 'some other value',
       showPersons: false,
-      showCockpit: true
+      showCockpit: true,
+      changeCounter: 0
     }
   }
 
@@ -62,7 +63,12 @@ class App extends Component {
     const updatedPersons = [...this.state.persons];
     updatedPersons[personIndex] = editedPerson;
 
-    this.setState( {persons: updatedPersons} );
+    this.setState((prevState,props) =>{
+        return {
+          persons: updatedPersons,
+          changeCounter: prevState.changeCounter + 1
+        }
+    });
 
   }
   togglePersonsHandler = () => {
