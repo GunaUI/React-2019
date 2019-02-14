@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import mycssModule from './App.css';
 import PersonRepeat from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
+import Aux from '../hoc/Aux'
+import withClass from '../hoc/WithClass'
 // For component name use only caps (custom component) , small letter element is default jsx.
 class App extends Component {
   constructor(props) {
@@ -91,7 +93,7 @@ class App extends Component {
     }
     
     return (
-        <div className={mycssModule.App}>
+        <Aux>
           <button
           onClick={() => {
             this.setState({ showCockpit: false });
@@ -108,9 +110,9 @@ class App extends Component {
           />
           ) : null}
           {personsVar}
-        </div>
+        </Aux>
     );
   }
 }
 
-export default App;
+export default withClass(App, mycssModule.App);
