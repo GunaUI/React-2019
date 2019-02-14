@@ -1,6 +1,7 @@
 # React-2019
 Change different branch to get explore.
 ## Component Lifecycle
+Refer : https://blog.bitsrc.io/understanding-react-v16-4-new-component-lifecycle-methods-fa7b224efd7d
 
 ## Creation phase
     * constructor
