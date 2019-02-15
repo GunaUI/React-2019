@@ -3,7 +3,7 @@ Change different branch to get explore.
 ## Functional Component React Hook
 
 ### useEffect
-* use a fact basically combines the functionality or the use cases you can cover of all these class based lifecycle hooks in one react hook here.
+* useEffect basically combines the functionality or the use cases you can cover of all these class based lifecycle hooks in one react hook here.
 * useEffect can import and add anywhere inside your functional component body.
 * useEffect will take a function and run in every render cycle.
 
