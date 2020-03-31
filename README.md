@@ -6,8 +6,11 @@ Change different branch to get explore.
 * Use state is the hook that allows us to manage state and a functional component.
 * One difference between class based and this funtional based hook is in class based on set state it will merge with the existing state but in functional base update state it will replace the entire state.
 
-```
+```js
 import React, { useState } from 'react';
+import './App.css';
+import PersonImport from './Person/Person';
+// For component name use only caps (custom component) , small letter element is default jsx.
 const App = props => {
   const [personsState, setPersonsState] = useState({
     persons: [
@@ -17,7 +20,33 @@ const App = props => {
     ]
   });
 
-  return (
+  const [otherState, setOtherState] = useState('some other value');
+
+  console.log(personsState, otherState);
+
+  const switchNameHandler = (newName) => {
+    // console.log('Was clicked!');
+    // DON'T DO THIS: this.state.persons[0].name = 'Maximilian';
+    setPersonsState( {
+      persons: [
+        { name: newName, age: 28 },
+        { name: 'Manu', age: 29 },
+        { name: 'Stephanie', age: 27 }
+      ]
+    } )
+  }
+
+  const nameChangedHandler = (event) => {
+    setPersonsState( {
+      persons: [
+        { name: 'Max', age: 28 },
+        { name: event.target.value, age: 29 },
+        { name: 'Stephanie', age: 26 }
+      ]
+    } )
+  }
+
+    return (
       <div className="App">
         <h1>Hi, I'm a React App</h1>
         <p>This is really working!</p>
@@ -36,6 +65,9 @@ const App = props => {
       </div>
     );
 }
+
+export default App;
+
 ```
 
 
