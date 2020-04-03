@@ -3,8 +3,23 @@ Change different branch to get explore.
 * Two way data binding
 * In person.js pass input element event value as  onChange={properties.heychanged} 
 * To view the current value on load add value={properties.name} to the input element.
+```js
+import React from 'react';
+
+const personExport = ( properties ) => {
+    return (
+        <div>
+            <p onClick={properties.clickme}>I'm {properties.name} and I am {properties.age} years old!</p>
+            <p>{properties.children}</p>
+            <input type="text" onChange={properties.heychanged} value={properties.name} />
+        </div>
+    )
+};
+
+export default personExport;
+```
 * In app.js receive as heychanged={this.nameChangedHandler} and set state of newly changed value as below
-    ```
+    ```js
     nameChangedHandler = (event) => {
         this.setState( {
         persons: [
@@ -13,6 +28,27 @@ Change different branch to get explore.
             { name: 'Stephanie', age: 26 }
         ]
         } )
+    }
+
+    render () {
+      return (
+        <div className="App">
+          <h1>Hi, I'm a React App</h1>
+          <p>This is really working!</p>
+          <button onClick={() => this.switchNameHandler('Maximilian!!')}>Switch Name</button>
+          <PersonImport 
+            name={this.state.persons[0].name} 
+            age={this.state.persons[0].age} />
+          <PersonImport 
+            name={this.state.persons[1].name} 
+            age={this.state.persons[1].age}
+            clickme={this.switchNameHandler.bind(this, 'Max!')}
+            heychanged={this.nameChangedHandler} >My Hobbies: Racing</PersonImport>
+          <PersonImport 
+            name={this.state.persons[2].name} 
+            age={this.state.persons[2].age} />
+        </div>
+      );
     }
     ```
 
@@ -63,7 +99,7 @@ Every time you alter that text <input .... />,  the names inside the other text 
 are replaced with the same content,  so,  those other text <input .... />s appear to be non-altered.
 
 Use the following (instead) & alter your Harsh (name).
-```
+```js
 nameChangedHandler = (event) => {
     this.setState({
         people: [
