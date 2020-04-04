@@ -3,7 +3,7 @@ Change different branch to get explore.
 * Rendering data conditionally Part 2 (recomended)
 * Toggle show hide with javascript  variable in render function before it return like below
 
-```
+```js
 let persons = null;
 
     if ( this.state.showPersons ) {
@@ -25,8 +25,15 @@ let persons = null;
     }
 
 ```
-```
-    {persons}
+```js
+    return (
+      <div className="App">
+        <h1>Hi, I'm a React App</h1>
+        <p>This is really working!</p>
+        <button style={styleguide} onClick={this.togglePersonsHandler}>Toggle Persons</button>
+        {persons}
+      </div>
+    );
 ```
 
 
