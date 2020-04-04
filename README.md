@@ -2,7 +2,7 @@
 Change different branch to get explore.
 * Outputting data in List
 * Es6 Map function used to repeat the array list and form list of elemensts
-```
+```js
     {this.state.persons.map((person, index) => {
             return <PersonImport
                 deleteme={() => this.deletePersonHandler(index)}
@@ -15,7 +15,7 @@ Change different branch to get explore.
 ### Delete a list
 * ID is mandatory in list. without Id it will through error.
 * This deletePersonHandler approach has flaw .
-```
+```js
     deletePersonHandler = (personIndex) => {
         const persons = this.state.persons
         persons.splice(personIndex, 1);
@@ -26,7 +26,7 @@ Change different branch to get explore.
 * so when I get persons from my state as I do here I actually get a pointer to the original person's object
 * A good practice is to create a copy of your persons array before manipulating it and a simple way of doing this is by calling the slice method. Slice without arguments simply copies the full array and
 
-```
+```js
     deletePersonHandler = (personIndex) => {
         const persons = this.state.persons.slice();
         persons.splice(personIndex, 1);
@@ -35,7 +35,7 @@ Change different branch to get explore.
 ```
 * More better way An alternative to this approach would be to use it a ES6 feature, the spread operator. 
 
-```
+```js
     deletePersonHandler = (personIndex) => {
         const persons = [...this.state.persons];
         persons.splice(personIndex, 1);
@@ -45,7 +45,7 @@ Change different branch to get explore.
 
 ### Flexible List
 * List wise update element
-```
+```js
 nameChangedHandler = (event,id) => {
     //Find index of edited element
     const personIndex = this.state.persons.findIndex(person => {
