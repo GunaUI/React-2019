@@ -3,14 +3,14 @@ Change different branch to get explore.
 * Dynamically change style in component
 ## Inline style dynamically
 
-```
+```js
 styleguide.backgroundColor = 'red';
 ```
 
 ## Style className dynamically.
 * in render function before return.
 
-```
+```js
     const classes = [];
         if ( this.state.persons.length <= 2 ) {
             classes.push( 'red' ); // classes = ['red']
@@ -21,7 +21,7 @@ styleguide.backgroundColor = 'red';
 ```
 * In Html (JSX)
 
-```
+```js
 className={classes.join( ' ' )}
 ```
 * here join converts array to string.
@@ -30,21 +30,21 @@ className={classes.join( ' ' )}
 
 * sudo classes are not css property for that we need to add some third party plugin - radium
 
-```
+```js
     npm install --save radium
 ```
 * Next we need to import radium to our component either specific or common component
 
-```
+```js
     import Radium from 'radium';
 ```
 * Then before export that component we need to wrap that component with radium component like below
 
-```
+```js
     export default Radium(App);
 ```
 * Now we can use pseudo class below example
-```
+```js
 const styleguide = {
     backgroundColor: 'green',
     font: 'inherit',
@@ -59,7 +59,7 @@ const styleguide = {
 };
 ```
 
-```
+```js
 styleguide.backgroundColor = 'red';
 styleguide[':hover'] = {
     backgroundColor: 'salmon',
@@ -70,7 +70,7 @@ styleguide[':hover'] = {
 
 * Without radium also normally with className, we could use media quries in our css
 
-```
+```js
 @media (min-width: 500px) {
     .Person {
         width: 450px;
@@ -80,7 +80,7 @@ styleguide[':hover'] = {
 ```
 * With Radium we could add media queires with our styleguide constant as below
 
-```
+```js
     const styleGuide = {
         '@media (min-width: 500px)': {
             width: '450px'
@@ -90,7 +90,7 @@ styleguide[':hover'] = {
 ```
 * use the above constant as 
 
-```
+```js
 style={styleGuide}
 ```
 * !!!! Important - to use radium media queries we need to import {StyleRoot} also from radim
@@ -100,7 +100,7 @@ import Radium , { StyleRoot } from 'radium';
 ```
 * And also its very important to wrap your component JSX with <StyleRoot> element as below
 
-```
+```js
     return (
         <StyleRoot>
         <div className="App">
