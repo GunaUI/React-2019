@@ -6,12 +6,12 @@ Change different branch to get explore.
 ### STEPS
 * run the below script
 
-```
+```js
     npm run eject
 ```
 * Add the below line in your webpack.config.js (search exclude: cssModuleRegex,) and replace the below changes
 
-```
+```js
     exclude: cssModuleRegex,
     use: getStyleLoaders({
         importLoaders: 1,
@@ -22,19 +22,18 @@ Change different branch to get explore.
 ```
 * Now you can use css as Module like below
 
-```
+```js
 import mycssModule from './App.css';
 
 
 <div className={mycssModule.App}>
-
 
 classes.push( mycssModule.red );
 ```
 
 By the way, if you somehow also want to define a global (i.e. un-transformed) CSS class in such a .css  file, you can prefix the selector with :global .
 
-```
+```js
 Example:
 
 :global .Post { ... } 
