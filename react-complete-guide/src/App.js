@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 // import logo from './logo.svg';
 import mycssModule from './App.css';
 import PersonImport from './Person/Person';
+import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
 // For component name use only caps (custom component) , small letter element is default jsx.
 class App extends Component {
   state = {
@@ -51,12 +52,14 @@ class App extends Component {
       personsVar = (
         <div>
           {this.state.persons.map((person, index) => {
-            return <PersonImport
+            return <ErrorBoundary>
+              <PersonImport
               deleteme={() => this.deletePersonHandler(index)}
               name={person.name} 
               age={person.age}
               key={person.id}
               heychanged={(event) => this.nameChangedHandler(event, person.id)} />
+              </ErrorBoundary>
           })}
         </div>
       )
