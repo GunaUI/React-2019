@@ -7,7 +7,7 @@ Change different branch to get explore.
 * useEffect can import and add anywhere inside your functional component body.
 * useEffect will take a function and run in every render cycle.
 
-```
+```js
 import React, { useEffect } from 'react';
 
 useEffect(() => {
@@ -25,7 +25,7 @@ useEffect(() => {
 
 * If secific props means it will render only if that particular props change else if empty i will render for the first time and never run again.
 
-```
+```js
 useEffect(() => {
         console.log('[Cockpit.js] useEffect');
         // Http request...
@@ -37,7 +37,7 @@ useEffect(() => {
 * In class based component the componentWillUnmount will do the cleanup work . what about function based component ??
 * In function based component we could use return statement inside useEffect that will run after useEffect, remember this also will controlled by the second param. if we did't pass anything cleanup work will run  "before" every useEffect. If it is empty array it will run only if that props completely unmount/destroyed form the dom. If second param has particular data if it changes it will run the useEffect and then it will run the cleanup work.
 
-```
+```js
 useEffect(() => {
         console.log('[Cockpit.js] useEffect');
         // Http request...
@@ -58,7 +58,7 @@ useEffect(() => {
 ```
 #### Performance Optimisation.
 * shouldComponentUpdate return default true will rerender dom always this will affect the performance , we could controll this will the below changes
-```
+```js
 shouldComponentUpdate(nextProps, nextState) {
         console.log('[Persons.js] shouldComponentUpdate');
         if (nextProps.persons !== this.props.persons) {
@@ -81,7 +81,7 @@ react we'll give back that stored component so therefore now initially does of c
 is no stored data 
 * react memo is a great way of also getting optimization for your functional components and thereforeit is a good idea to wrap functional components that might not need to update with every change.
 
-```
+```js
     export default React.memo(cockpit);
 ```
 
@@ -91,7 +91,7 @@ Note: Functional componet use React.memo and in class based component use should
 
 * If you want to render dom if in case data/function changes no need to check all params in shouldComponentUpdate , we could remove shouldComponentUpdate and then extend your class form PureComponent this has the inbuilt params compare.
 
-```
+```js
 import React, { PureComponent } from 'react';
 class PersonRepeat extends PureComponent {
     ......
