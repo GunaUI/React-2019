@@ -4,14 +4,14 @@ Change different branch to get explore.
 ### Method 1
 * Return a component with pros as pros.children
 
-```
+```js
     const aux = props => props.children;
 
     export default aux;
 ```
 * Wrap the multiple adjacent render element with above component
 
-```
+```js
         return (
                 <Aux>
                     <p onClick={this.props.deleteme}>I'm {this.props.name} and I am {this.props.age} years old!</p>
@@ -25,7 +25,7 @@ Change different branch to get explore.
 
 * Return as default Fragment as below
 
-```
+```js
 import React, { Component, Fragment } from 'react';
 
 return (
@@ -42,7 +42,7 @@ return (
 * Return an wrapper with class name
 * Create a custom component as below
 
-```
+```js
     import React from 'react';
 
     const withClass = props => (
@@ -52,7 +52,7 @@ return (
     export default withClass;
 ```
 * Use  withClass component as below
-```
+```js
 <WithClass classes={mycssModule.App}>
 
     ...... 
@@ -61,7 +61,7 @@ return (
 ```
 ### Method 4 (With a wrapper for children)
 
-```
+```js
     import React from 'react';
 
     const withClass = (WrappedComponent, className) => {
@@ -77,7 +77,7 @@ return (
 
 * Use the above component as below
 
-```
+```js
 import mycssModule from './App.css';
 import Aux from '../hoc/Aux'
 import withClass from '../hoc/WithClass'
