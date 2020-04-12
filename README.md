@@ -382,7 +382,7 @@ export default withClass(Person, classes.Person);
 
 ```
 
-Now we have to use this loginHandler function for that ..
+* Now we have to use this loginHandler function for that ..
 
 ```js
 // here ....
