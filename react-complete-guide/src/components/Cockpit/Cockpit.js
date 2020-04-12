@@ -1,53 +1,58 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useContext } from 'react';
 
-import cockpitCssModule from './Cockpit.css';
+import classes from './Cockpit.css';
+import AuthContext from '../../context/auth-context';
 
-const cockpit = ( props ) => {
-    const toggleBtnRef = useRef(null);
-    //Just like component did mount and component did update 
-    useEffect(() => {
-        console.log('[Cockpit.js] useEffect');
-        // Http request...
-        // setTimeout(() => {
-        //     alert('Saved data to cloud!');
-        // }, 1000);
-        toggleBtnRef.current.click();
-        return () => {
-            console.log('[Cockpit.js] cleanup work ############################# in useEffect');
-        };
-    }, []);
+const Cockpit = props => {
+  const toggleBtnRef = useRef(null);
+  const authContext = useContext(AuthContext);
 
-    useEffect(() => {
-        console.log('[Cockpit.js] 2nd useEffect');
-        return () => {
-            console.log('[Cockpit.js] cleanup work in 2nd useEffect');
-        };
-    });
+  console.log(authContext.authenticated);
 
-// useEffect();
-    const assignedClasses = [];
-    let btnClass = '';
-    if (props.showPersons) {
-        btnClass = cockpitCssModule.Red;
-    }
+  useEffect(() => {
+    console.log('[Cockpit.js] useEffect');
+    // Http request...
+    // setTimeout(() => {
+    //   alert('Saved data to cloud!');
+    // }, 1000);
+    toggleBtnRef.current.click();
+    return () => {
+      console.log('[Cockpit.js] cleanup work in useEffect');
+    };
+  }, []);
 
-    if ( props.personsLength <= 2 ) {
-        assignedClasses.push( cockpitCssModule.red ); // classes = ['red']
-    }
-    if ( props.personsLength <= 1 ) {
-        assignedClasses.push( cockpitCssModule.bold ); // classes = ['red', 'bold']
-    }
+  useEffect(() => {
+    console.log('[Cockpit.js] 2nd useEffect');
+    return () => {
+      console.log('[Cockpit.js] cleanup work in 2nd useEffect');
+    };
+  });
 
-    return (
-        <div className={cockpitCssModule.Cockpit}>
-            <h1>{ props.appTitle }</h1>
-            <p className={assignedClasses.join( ' ' )}>This is really working!</p>
-            <button
-                ref={toggleBtnRef}
-                className={btnClass}
-                onClick={props.toggleClicked}>Toggle Persons</button>
-        </div>
-    );
+  // useEffect();
+
+  const assignedClasses = [];
+  let btnClass = '';
+  if (props.showPersons) {
+    btnClass = classes.Red;
+  }
+
+  if (props.personsLength <= 2) {
+    assignedClasses.push(classes.red); // classes = ['red']
+  }
+  if (props.personsLength <= 1) {
+    assignedClasses.push(classes.bold); // classes = ['red', 'bold']
+  }
+
+  return (
+    <div className={classes.Cockpit}>
+      <h1>{props.title}</h1>
+      <p className={assignedClasses.join(' ')}>This is really working!</p>
+      <button ref={toggleBtnRef} className={btnClass} onClick={props.clicked}>
+        Toggle Persons
+      </button>
+      <button onClick={authContext.login}>Log in</button>
+    </div>
+  );
 };
 
-export default React.memo(cockpit);
+export default React.memo(Cockpit);
